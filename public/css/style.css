@@ -1,5 +1,5 @@
 body {
-    background-color: #020;
+    background-color: #000;
     color: white;
     font-size: 21px;
 }
@@ -21,4 +21,8 @@ button {
 
 button a {
     color: black;
+}
+
+.data {
+    color: #afa;
 }
