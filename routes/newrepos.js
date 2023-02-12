@@ -116,7 +116,9 @@ router.post("/add", (req, res) => {
 });
 
 router.get("/getrepos", (req, res) => {
-  const { term } = req.query;
+  let { term } = req.query;
+  // making case-insensitive
+  term = term.toLowerCase();
 
   Repo.findAll({
     where: {
