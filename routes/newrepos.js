@@ -118,7 +118,15 @@ router.post("/add", (req, res) => {
 router.get("/getrepos", (req, res) => {
   const { term } = req.query;
 
-  Repo.findAll({ where: { item_id: { [Op.like]: "%" + term + "%" } } })
+  Repo.findAll({
+    where: {
+      [Op.or]: [
+        { item_id: { [Op.like]: "%" + term + "%" } },
+        { item_name: { [Op.like]: "%" + term + "%" } },
+      ],
+    },
+    //  { item_name: { [Op.like]: "%" + term + "%" } },
+  })
     .then((newrepos) => res.render("database", { newrepos }))
     .catch((err) => console.log(err));
 });
