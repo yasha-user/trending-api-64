@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/database");
 const Repo = require("../models/Repo");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 router.get("/", (req, res) =>
   Repo.findAll()
@@ -113,12 +115,24 @@ router.post("/add", (req, res) => {
   }
 });
 
+router.get("/getrepos", (req, res) => {
+  const { term } = req.query;
+
+  Repo.findAll({ where: { item_id: { [Op.like]: "%" + term + "%" } } })
+    .then((newrepos) => res.render("database", { newrepos }))
+    .catch((err) => console.log(err));
+});
+
 router.get("/database", (req, res) => {
   Repo.findAll()
     .then((newrepos) => res.render("database", { newrepos }))
     .catch((err) => console.log(err));
 });
-
+/*
+  Repo.findAll()
+    .then((newrepos) => res.render("database", { newrepos }))
+    .catch((err) => console.log(err));
+    */
 // get stringified JSON of first repo in trending
 router.get("/spell", (req, res) => {
   fetch(url).then((response) =>
