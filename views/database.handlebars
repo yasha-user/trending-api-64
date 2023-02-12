@@ -1,0 +1,33 @@
+<h3>all units</h3>
+
+<div class="unit">
+{{#each newrepos}}
+
+<br>
+<p>
+    item_id:{{item_id}}
+</p>
+<br>
+<p>
+    item_name:{{item_name}}
+</p>
+<br>
+<p>
+    full_name:{{full_name}}
+</p>
+<br>
+<p>
+    description:{{description}}
+</p>
+<br>
+<p>
+    html_url:{{html_url}}
+</p>
+<br>
+
+{{else}}
+<p>No units in database!</p>
+{{/each}}
+
+</div>
+

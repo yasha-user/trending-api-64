@@ -1,0 +1,24 @@
+body {
+    background-color: #020;
+    color: white;
+    font-size: 21px;
+}
+
+.container {
+    width: 90%;
+    margin: auto 4rem;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+button {
+    padding: 0px 1rem;
+}
+
+button a {
+    color: black;
+}
