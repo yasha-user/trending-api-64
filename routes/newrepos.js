@@ -52,6 +52,7 @@ router.post("/add", (req, res) => {
             item_id: data.items[key].id,
             item_name: data.items[key].name,
             full_name: data.items[key].full_name,
+            stargazers_count: data.items[key].stargazers_count,
             description: data.items[key].description,
             html_url: data.items[key].html_url,
           })
@@ -68,6 +69,7 @@ router.post("/add", (req, res) => {
               item_id: data.items[i].id,
               item_name: data.items[i].name,
               full_name: data.items[i].full_name,
+              stargazers_count: data.items[i].stargazers_count,
               description: data.items[i].description,
               html_url: data.items[i].html_url,
             })
@@ -85,6 +87,7 @@ router.post("/add", (req, res) => {
             item_id: data.items[key].id,
             item_name: data.items[key].name,
             full_name: data.items[key].full_name,
+            stargazers_count: data.items[key].stargazers_count,
             description: data.items[key].description,
             html_url: data.items[key].html_url,
           })
@@ -98,6 +101,7 @@ router.post("/add", (req, res) => {
             item_id: data.items[key].id,
             item_name: data.items[key].name,
             full_name: data.items[key].full_name,
+            stargazers_count: data.items[key].stargazers_count,
             description: data.items[key].description,
             html_url: data.items[key].html_url,
           })
