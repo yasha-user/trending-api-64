@@ -62,8 +62,9 @@ router.post("/add", (req, res) => {
             .catch((err) => console.log(err));
           return;
         } /* here i need async but i have a for loop */ else if (
-          recievedName === "all"
+          recievedName === "all" //it is what i need
         ) {
+          // here should be database resetting
           for (let i = 0; i < data.items.length; i++) {
             console.log(` and the number is ${i + 1}`);
             Repo.create({
@@ -127,7 +128,6 @@ router.get("/getrepos", (req, res) => {
         { item_name: { [Op.like]: "%" + term + "%" } },
       ],
     },
-    //  { item_name: { [Op.like]: "%" + term + "%" } },
   })
     .then((newrepos) => res.render("database", { newrepos }))
     .catch((err) => console.log(err));
