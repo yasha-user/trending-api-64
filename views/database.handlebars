@@ -1,7 +1,8 @@
 <h3>all units</h3>
-
-<div class="unit">
+<div class="unit-cont">
 {{#each newrepos}}
+    
+<div class="unit">
 
 <p>
     item_id: <span class="data">{{item_id}}</span>
@@ -13,15 +14,19 @@
     full_name: <span class="data">{{full_name}}</span>
 </p>
 <p>
+    stargazers_count: <span class="data">{{stargazers_count}}</span>
+</p>
+<p>
     description: <span class="data">{{description}}</span>
 </p>
 <p>
     html_url: <span class="data">{{html_url}}</span>
 </p>
 
+</div>
 {{else}}
 <p>No units in database!</p>
 {{/each}}
-
 </div>
+
 

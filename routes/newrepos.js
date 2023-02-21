@@ -133,13 +133,13 @@ router.get("/getrepos", (req, res) => {
       ],
     },
   })
-    .then((newrepos) => res.render("database", { newrepos }))
+    .then((newrepos) => res.render("databaseShort", { newrepos }))
     .catch((err) => console.log(err));
 });
 
 router.get("/database", (req, res) => {
   Repo.findAll()
-    .then((newrepos) => res.render("database", { newrepos }))
+    .then((newrepos) => res.render("databaseShort", { newrepos }))
     .catch((err) => console.log(err));
 });
 /*
