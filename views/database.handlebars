@@ -1,5 +1,9 @@
 <div class="caption">
     <h2>Trending repositories</h2>
+    <form action="">
+    you will find repositories created since
+    <input type="date" name="dateNew" value="2023-01-01">
+</form>
 <form action="/repos/add" method="post">
     <p><button name="forceSync">Force sync</button></p><br>
 </form>
@@ -28,7 +32,8 @@
 </div>
 
 {{else}}
-<p>No units in database!</p>
+<p>No repos in database yet!</p>
+<p>Push force sync to get repos</p>
 {{/each}}
 
 

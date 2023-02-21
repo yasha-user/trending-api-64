@@ -13,8 +13,9 @@ router.get("/", (req, res) =>
     .catch((err) => console.log(err))
 );
 
+// here is request with the date
 const url =
-  "https://api.github.com/search/repositories?q=created:>2023-02-01&sort=stars&order=desc"; // for repos created from 02-01 up to today
+  "https://api.github.com/search/repositories?q=created:>2023-01-01&sort=stars&order=desc"; // for repos created from 01-01 up to today by default
 
 // get repos to database
 

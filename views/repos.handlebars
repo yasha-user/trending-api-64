@@ -3,22 +3,21 @@
     {{!-- <h3>get your repos</h3> --}}
         <h3>get trending repos</h3>
 
-    {{!-- <p><a href="/repos/add">add repo</a></p> --}}
     <p><a href="/repos/database">look at the database</a></p>
-{{!-- 
-    <form action="/repos/add" method="post">
-<p><button name="all" id="all">add!</button><br>
-adds a repos created from 2023y-02m-01d</p>
-</form>
- --}}
+
 <form action="/repos/getrepos">
     <p><input type="search" name="term" placeholder="type name or id">
     <input type="submit" value="search">
-    {{!-- <a href="/repos/getrepos">search repos</a> --}}
 </p></form>
-    {{!-- <p><a href="/repos/getfirst">get first repo</a></p> --}}
+
+<form action="">
+    you will find repos <br> created since
+    <input type="date" name="dateNew" value="2023-01-01">
+</form>
+
 <form action="/repos/add" method="post">
     <p><button name="all">Force sync</button></p>
 </form>
     <p><a href="/repos/spell">cast a spell</a></p>
+    
     </div>
