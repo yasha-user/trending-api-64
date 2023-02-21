@@ -65,22 +65,26 @@ router.post("/add", (req, res) => {
           recievedName === "all" //it is what i need
         ) {
           // here should be database resetting
-          for (let i = 0; i < data.items.length; i++) {
-            console.log(` and the number is ${i + 1}`);
-            Repo.create({
-              item_id: data.items[i].id,
-              item_name: data.items[i].name,
-              full_name: data.items[i].full_name,
-              description: data.items[i].description,
-              html_url: data.items[i].html_url,
-            })
-              .then(console.log("Added"))
-              .catch((err) => console.log(err));
+          (async () => {
+            await Repo.sync({ force: true });
+            // here should be database resetting
+            for (let i = 0; i < data.items.length; i++) {
+              console.log(` and the number is ${i + 1}`);
+              Repo.create({
+                item_id: data.items[i].id,
+                item_name: data.items[i].name,
+                full_name: data.items[i].full_name,
+                description: data.items[i].description,
+                html_url: data.items[i].html_url,
+              })
+                .then(console.log("Added"))
+                .catch((err) => console.log(err));
 
-            if (data.items.length - 1 === i) {
-              res.redirect("/repos");
+              if (data.items.length - 1 === i) {
+                res.redirect("/repos");
+              }
             }
-          }
+          })();
         } else if (recievedName === "byId") {
           // console.log(` and the req body iiiiis ${JSON.stringify(req.body)}`);
           console.log(` and the name is ${recievedName}`);
