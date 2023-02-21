@@ -74,6 +74,7 @@ router.post("/add", (req, res) => {
                 item_id: data.items[i].id,
                 item_name: data.items[i].name,
                 full_name: data.items[i].full_name,
+                stargazers_count: data.items[i].stargazers_count,
                 description: data.items[i].description,
                 html_url: data.items[i].html_url,
               })
