@@ -1,32 +1,34 @@
-<h3>all units</h3>
-<div class="unit-cont">
-{{#each newrepos}}
-    
-<div class="unit">
+<div class="caption">
+    <h2>Trending repositories</h2>
+<form action="/repos/add" method="post">
+    <p><button name="forceSync">Force sync</button></p><br>
+</form>
+{{!-- <h3>all units</h3> --}}
 
+</div>
+{{#each newrepos}}
+<div class="unit">
 <p>
-    item_id: <span class="data">{{item_id}}</span>
+    Repo name: <span class="data">{{item_name}}</span>         
 </p>
 <p>
-    item_name: <span class="data">{{item_name}}</span>
-</p>
-<p>
-    full_name: <span class="data">{{full_name}}</span>
-</p>
-<p>
-    stargazers_count: <span class="data">{{stargazers_count}}</span>
+    Repo ID: <span class="data">{{item_id}}</span>
 </p>
 <p>
     description: <span class="data">{{description}}</span>
 </p>
-<p>
-    html_url: <span class="data">{{html_url}}</span>
-</p>
 
+<p>
+        <span>place:</span><span class="data"> {{id}}</span>
+    Stars count: <span class="data">{{stargazers_count}}</span>
+</p>
+<p class="open">
+<a href={{html_url}}>@open</a>
+</p>
 </div>
+
 {{else}}
 <p>No units in database!</p>
 {{/each}}
-</div>
 
 

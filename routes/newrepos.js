@@ -15,8 +15,6 @@ router.get("/", (req, res) =>
 
 const url =
   "https://api.github.com/search/repositories?q=created:>2023-02-01&sort=stars&order=desc"; // for repos created from 02-01 up to today
-const ghurl = "gh api /search/repositories?q=Q";
-const curl_url = `curl -G https://api.github.com/search/repositories --data-urlencode "sort:stars" --data-urlencode "order:desc" --data-urlencode "q=created:>2023-02-01"`; // for repos created from 02-01 up to today
 
 // get repos to database
 
@@ -26,48 +24,23 @@ router.get("/add", (req, res) => {
 
 router.post("/add", (req, res) => {
   let key = 0 ?? [];
-  let { byId, byName } = req.body;
+  // let { byId, byName } = req.body;
   let recievedName;
   for (var name in req.body) {
     recievedName = name;
   }
   let errors = [];
 
-  if (recievedName === "byId" && !byId) {
-    errors.push({ text: "insert id" });
-  }
-  if (recievedName === "byName" && !byName) {
-    errors.push({ text: "insert name" });
-  }
-  if (errors.length > 0) {
-    res.render("add", {
-      errors,
-      byId,
-      byName,
-    });
-  } else {
+  // here database is set and filled
+  {
     fetch(url).then((response) =>
       response.json().then((data) => {
-        if (recievedName === "first") {
-          console.log(` and the name is ${recievedName}`);
-          Repo.create({
-            item_id: data.items[key].id,
-            item_name: data.items[key].name,
-            full_name: data.items[key].full_name,
-            description: data.items[key].description,
-            html_url: data.items[key].html_url,
-          })
-            .then(res.redirect("/repos"))
-            .then(console.log("Added first!"))
-            .catch((err) => console.log(err));
-          return;
-        } /* here i need async but i have a for loop */ else if (
-          recievedName === "all" //it is what i need
-        ) {
-          // here should be database resetting
+        if (recievedName === "all") {
+          // here is database reset
           (async () => {
             await Repo.sync({ force: true });
-            // here should be database resetting
+
+            // here Repos are added one at a time
             for (let i = 0; i < data.items.length; i++) {
               console.log(` and the number is ${i + 1}`);
               Repo.create({
@@ -86,44 +59,42 @@ router.post("/add", (req, res) => {
               }
             }
           })();
-        } else if (recievedName === "byId") {
-          // console.log(` and the req body iiiiis ${JSON.stringify(req.body)}`);
-          console.log(` and the name is ${recievedName}`);
-          Repo.create({
-            item_id: data.items[key].id,
-            item_name: data.items[key].name,
-            full_name: data.items[key].full_name,
-            description: data.items[key].description,
-            html_url: data.items[key].html_url,
-          })
-            .then(res.redirect("/repos"))
-            .then(console.log("Added 1!"))
-            .catch((err) => console.log(err));
-          return;
-        } else if (recievedName === "byName") {
-          console.log(` and the name is ${recievedName}`);
-          Repo.create({
-            item_id: data.items[key].id,
-            item_name: data.items[key].name,
-            full_name: data.items[key].full_name,
-            description: data.items[key].description,
-            html_url: data.items[key].html_url,
-          })
-            .then(res.redirect("/repos"))
-            .then(console.log("Added 1!"))
-            .catch((err) => console.log(err));
-          return;
+        } else if (recievedName === "forceSync") {
+          // here is database reset x2
+          (async () => {
+            await Repo.sync({ force: true });
+
+            // here Repos are added one at a time
+            for (let i = 0; i < data.items.length; i++) {
+              console.log(` and the number is ${i + 1}`);
+              Repo.create({
+                item_id: data.items[i].id,
+                item_name: data.items[i].name,
+                full_name: data.items[i].full_name,
+                stargazers_count: data.items[i].stargazers_count,
+                description: data.items[i].description,
+                html_url: data.items[i].html_url,
+              })
+                .then(console.log("Added"))
+                .catch((err) => console.log(err));
+
+              if (data.items.length - 1 === i) {
+                res.redirect("/repos/database");
+              }
+            }
+          })();
         } else {
           res.send(`${recievedName}`);
+          // if error or bug ^^it^^ prints name of button that caused error
         }
       })
     );
   }
 });
 
+// search by NAME or ID (renders database page with found repos instead of all)
 router.get("/getrepos", (req, res) => {
   let { term } = req.query;
-  // making case-insensitive
   term = term.toLowerCase();
 
   Repo.findAll({
@@ -134,46 +105,26 @@ router.get("/getrepos", (req, res) => {
       ],
     },
   })
-    .then((newrepos) => res.render("databaseShort", { newrepos }))
+    // now database is rendered with repos that are found
+    .then((newrepos) => res.render("database", { newrepos }))
     .catch((err) => console.log(err));
 });
 
+// gets database with designated Repos
 router.get("/database", (req, res) => {
-  Repo.findAll()
-    .then((newrepos) => res.render("databaseShort", { newrepos }))
-    .catch((err) => console.log(err));
-});
-/*
   Repo.findAll()
     .then((newrepos) => res.render("database", { newrepos }))
     .catch((err) => console.log(err));
-    */
+});
+
 // get stringified JSON of first repo in trending
+// you can press it to have a good feeling
 router.get("/spell", (req, res) => {
   fetch(url).then((response) =>
     response.json().then((data) => {
       let key = 0 ?? [];
       newdata = JSON.stringify(data.items[key]);
       res.render("spell", { newdata });
-    })
-  );
-});
-
-// get JSON of first repo in trends
-router.get("/getfirst", (req, res) => {
-  let key = 0 ?? [];
-  fetch(url).then((response) =>
-    response.json().then((data) => {
-      /* 
-      if (String(`${data.items[key].id}`) == String(req.params.id))
-        res.send(
-          String(
-            `Indeed repo #${data.items[key].id} is what you was searching for`
-          )
-        );
-      else  */ {
-        res.send(data.items[key]);
-      }
     })
   );
 });

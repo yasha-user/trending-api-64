@@ -28,10 +28,8 @@ button a {
     color: #afa;
 }
 
-.unit-cont {
+.caption {
     text-align: center;
-    justify-content: center;
-    display: inline;
 
 }
 
@@ -43,4 +41,22 @@ button a {
     border-radius: .5rem;
 
     margin: 1rem auto;
+}
+
+.open {
+    text-align: right;
+    margin-right: 2rem;
+}
+
+header {
+    background-color: #222;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+
+}
+
+header a {
+    padding: .5rem 2rem;
+    border-right: 1px black solid;
 }
