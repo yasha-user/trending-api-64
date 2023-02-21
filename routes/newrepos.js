@@ -36,10 +36,42 @@ router.post("/add", (req, res) => {
   {
     fetch(url).then((response) =>
       response.json().then((data) => {
+<<<<<<< HEAD
         if (recievedName === "all") {
           // here is database reset
           (async () => {
             await Repo.sync({ force: true });
+=======
+        if (recievedName === "first") {
+          console.log(` and the name is ${recievedName}`);
+          Repo.create({
+            item_id: data.items[key].id,
+            item_name: data.items[key].name,
+            full_name: data.items[key].full_name,
+            stargazers_count: data.items[key].stargazers_count,
+            description: data.items[key].description,
+            html_url: data.items[key].html_url,
+          })
+            .then(res.redirect("/repos"))
+            .then(console.log("Added first!"))
+            .catch((err) => console.log(err));
+          return;
+        } /* here i need async but i have a for loop */ else if (
+          recievedName === "all"
+        ) {
+          for (let i = 0; i < data.items.length; i++) {
+            console.log(` and the number is ${i + 1}`);
+            Repo.create({
+              item_id: data.items[i].id,
+              item_name: data.items[i].name,
+              full_name: data.items[i].full_name,
+              stargazers_count: data.items[i].stargazers_count,
+              description: data.items[i].description,
+              html_url: data.items[i].html_url,
+            })
+              .then(console.log("Added"))
+              .catch((err) => console.log(err));
+>>>>>>> master
 
             // here Repos are added one at a time
             for (let i = 0; i < data.items.length; i++) {
@@ -59,6 +91,7 @@ router.post("/add", (req, res) => {
                 res.redirect("/repos");
               }
             }
+<<<<<<< HEAD
           })();
         } else if (recievedName === "forceSync") {
           // here is database reset x2
@@ -84,6 +117,38 @@ router.post("/add", (req, res) => {
               }
             }
           })();
+=======
+          }
+        } else if (recievedName === "byId") {
+          // console.log(` and the req body iiiiis ${JSON.stringify(req.body)}`);
+          console.log(` and the name is ${recievedName}`);
+          Repo.create({
+            item_id: data.items[key].id,
+            item_name: data.items[key].name,
+            full_name: data.items[key].full_name,
+            stargazers_count: data.items[key].stargazers_count,
+            description: data.items[key].description,
+            html_url: data.items[key].html_url,
+          })
+            .then(res.redirect("/repos"))
+            .then(console.log("Added 1!"))
+            .catch((err) => console.log(err));
+          return;
+        } else if (recievedName === "byName") {
+          console.log(` and the name is ${recievedName}`);
+          Repo.create({
+            item_id: data.items[key].id,
+            item_name: data.items[key].name,
+            full_name: data.items[key].full_name,
+            stargazers_count: data.items[key].stargazers_count,
+            description: data.items[key].description,
+            html_url: data.items[key].html_url,
+          })
+            .then(res.redirect("/repos"))
+            .then(console.log("Added 1!"))
+            .catch((err) => console.log(err));
+          return;
+>>>>>>> master
         } else {
           res.send(`${recievedName}`);
           // if error or bug ^^it^^ prints name of button that caused error
