@@ -5,27 +5,29 @@ const Repo = require("../models/Repo");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
-var dateValue = "2023-01-01"; // setting default value
-let dateValStr;
-
-// changing dateValue
-router.post("/dateval", (req, res) => {
-  if (req.body.dateNewRepos) {
-    var dateValue = req.body.dateNewRepos;
-
-    console.log(req.body.dateNewRepos);
-    res.redirect("/repos");
-  } else if (req.body.dateNewDb) {
-    var dateValue = req.body.dateNewDb;
-
-    console.log(recieved);
-    res.redirect("/repos/database");
-  }
-});
-
-//
+let dateValue = "2023-01-01"; // setting default value
 // here is request with the date
 let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`; // url for request for repos created from 01-01-2023 up to today by default
+
+// changing dateValue
+router.post("/dateval", (req, res, next) => {
+  if (req.body.dateNewRepos) {
+    dateValue = req.body.dateNewRepos; //should be passed into initial value
+    console.log(req.body.dateNewRepos);
+    res.render("repos", { dateValue, url });
+  } else if (req.body.dateNewDb) {
+    dateValue = req.body.dateNewDb; //should be passed into initial value
+    // here
+    console.log(dateValue);
+    res.render("database", { dateValue, url });
+  }
+});
+/* 
+router.post("/dateval", (req, res) => {
+  res.render("database", { dateValue });
+});
+ */
+//
 
 router.get("/", (req, res) =>
   Repo.findAll()
@@ -37,18 +39,18 @@ router.get("/", (req, res) =>
 
 // get repos to database
 router.post("/add", (req, res) => {
-  let key = 0 ?? [];
-  // let { byId, byName } = req.body;
   let recievedName;
   for (var name in req.body) {
     recievedName = name;
   }
-  let errors = [];
+  // updates a value based on /dateval request to fetch it later
+  let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`;
+  console.log(`request is ${url}`);
 
   // here database is set and filled
-  // for loop
   {
-    fetch(url).then((response) =>
+    // here
+    fetch(url, { dateValue }).then((response) =>
       response.json().then((data) => {
         if (recievedName === "all") {
           // here is database reset
