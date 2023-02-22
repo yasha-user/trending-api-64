@@ -10,26 +10,14 @@ let dateValStr;
 
 // changing dateValue
 router.post("/dateval", (req, res) => {
-  // for loop
-  var recieved;
-  for (var name in dateValue) {
-    recieved = name;
-  }
-  //
   if (req.body.dateNewRepos) {
     var dateValue = req.body.dateNewRepos;
-    dateValStr = JSON.parse(`{ "${dateValue}": "${dateValue}" }`);
+
     console.log(req.body.dateNewRepos);
     res.redirect("/repos");
   } else if (req.body.dateNewDb) {
-    // for loop
-    let recieved;
-    for (var name in dateValue) {
-      recieved = name;
-    }
-    //
     var dateValue = req.body.dateNewDb;
-    dateValStr = JSON.parse(`{ "${dateValue}": "${dateValue}" }`);
+
     console.log(recieved);
     res.redirect("/repos/database");
   }
@@ -107,12 +95,6 @@ router.post("/add", (req, res) => {
                 .catch((err) => console.log(err));
 
               if (data.items.length - 1 === i) {
-                // for loop
-                let recieved;
-                for (var name in dateValStr) {
-                  recieved = name;
-                }
-                //
                 console.log(dateValue);
                 res.redirect("/repos/database");
               }
