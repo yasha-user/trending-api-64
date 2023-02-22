@@ -10,12 +10,13 @@
     <input type="submit" value="search">
 </p></form>
 
-<form action="">
+<form action="/repos/dateval" method="post">
     you will find repos <br> created since
-    <input type="date" name="dateNew" value="2023-01-01">
+    <input type="date" name="dateNewRepos" id="dateNewRepos" value={{dateValue}}>
+    <input type="submit" value="get">
 </form>
 
-<form action="/repos/add" method="post">
+<form action="/repos/add" method="POST">
     <p><button name="all">Force sync</button></p>
 </form>
     <p><a href="/repos/spell">cast a spell</a></p>

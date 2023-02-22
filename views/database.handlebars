@@ -1,8 +1,9 @@
 <div class="caption">
     <h2>Trending repositories</h2>
-    <form action="">
+    <form action="/repos/dateval" method="post">
     you will find repositories created since
-    <input type="date" name="dateNew" value="2023-01-01">
+    <input type="date" name="dateNewDb" id="dateNewDb" value={{dateValue}}>
+    <input type="submit" value="get">
 </form>
 <form action="/repos/add" method="post">
     <p><button name="forceSync">Force sync</button></p><br>

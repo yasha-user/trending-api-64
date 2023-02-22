@@ -5,24 +5,49 @@ const Repo = require("../models/Repo");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
+var dateValue = "2023-01-01"; // setting default value
+let dateValStr;
+
+// changing dateValue
+router.post("/dateval", (req, res) => {
+  // for loop
+  var recieved;
+  for (var name in dateValue) {
+    recieved = name;
+  }
+  //
+  if (req.body.dateNewRepos) {
+    var dateValue = req.body.dateNewRepos;
+    dateValStr = JSON.parse(`{ "${dateValue}": "${dateValue}" }`);
+    console.log(req.body.dateNewRepos);
+    res.redirect("/repos");
+  } else if (req.body.dateNewDb) {
+    // for loop
+    let recieved;
+    for (var name in dateValue) {
+      recieved = name;
+    }
+    //
+    var dateValue = req.body.dateNewDb;
+    dateValStr = JSON.parse(`{ "${dateValue}": "${dateValue}" }`);
+    console.log(recieved);
+    res.redirect("/repos/database");
+  }
+});
+
+//
+// here is request with the date
+let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`; // url for request for repos created from 01-01-2023 up to today by default
+
 router.get("/", (req, res) =>
   Repo.findAll()
     .then((repos) => {
-      res.render("repos", { repos });
+      res.render("repos", { dateValue });
     })
     .catch((err) => console.log(err))
 );
 
-// here is request with the date
-const url =
-  "https://api.github.com/search/repositories?q=created:>2023-01-01&sort=stars&order=desc"; // for repos created from 01-01 up to today by default
-
 // get repos to database
-
-router.get("/add", (req, res) => {
-  res.render("add");
-});
-
 router.post("/add", (req, res) => {
   let key = 0 ?? [];
   // let { byId, byName } = req.body;
@@ -33,6 +58,7 @@ router.post("/add", (req, res) => {
   let errors = [];
 
   // here database is set and filled
+  // for loop
   {
     fetch(url).then((response) =>
       response.json().then((data) => {
@@ -56,6 +82,7 @@ router.post("/add", (req, res) => {
                 .catch((err) => console.log(err));
 
               if (data.items.length - 1 === i) {
+                console.log(dateValue);
                 res.redirect("/repos");
               }
             }
@@ -80,6 +107,13 @@ router.post("/add", (req, res) => {
                 .catch((err) => console.log(err));
 
               if (data.items.length - 1 === i) {
+                // for loop
+                let recieved;
+                for (var name in dateValStr) {
+                  recieved = name;
+                }
+                //
+                console.log(dateValue);
                 res.redirect("/repos/database");
               }
             }
@@ -114,7 +148,7 @@ router.get("/getrepos", (req, res) => {
 // gets database with designated Repos
 router.get("/database", (req, res) => {
   Repo.findAll()
-    .then((newrepos) => res.render("database", { newrepos }))
+    .then((newrepos) => res.render("database", { newrepos, dateValue }))
     .catch((err) => console.log(err));
 });
 
