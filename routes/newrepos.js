@@ -10,54 +10,36 @@ let dateValue = "2023-01-01"; // setting default value
 let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`; // url for request for repos created from 01-01-2023 up to today by default
 
 // changing dateValue
-router.post("/dateval", (req, res, next) => {
+router.use("/dateval", (req, res, next) => {
   if (req.body.dateNewRepos) {
-    dateValue = req.body.dateNewRepos; //should be passed into initial value
+    dateValue = req.body.dateNewRepos; //passes new value into initial value
     console.log(req.body.dateNewRepos);
-    res.render("repos", { dateValue, url });
+    next();
   } else if (req.body.dateNewDb) {
-    dateValue = req.body.dateNewDb; //should be passed into initial value
-    // here
+    dateValue = req.body.dateNewDb; //passes new value into initial value
     console.log(dateValue);
-    res.render("database", { dateValue, url });
+    next();
   }
 });
-/* 
 router.post("/dateval", (req, res) => {
-  res.render("database", { dateValue });
-});
- */
-//
-
-router.get("/", (req, res) =>
-  Repo.findAll()
-    .then((repos) => {
-      res.render("repos", { dateValue });
-    })
-    .catch((err) => console.log(err))
-);
-
-// get repos to database
-router.post("/add", (req, res) => {
   let recievedName;
   for (var name in req.body) {
     recievedName = name;
   }
-  // updates a value based on /dateval request to fetch it later
+  // updates url value with new dateValue
   let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`;
   console.log(`request is ${url}`);
 
   // here database is set and filled
   {
-    // here
     fetch(url, { dateValue }).then((response) =>
       response.json().then((data) => {
-        if (recievedName === "all") {
-          // here is database reset
+        if (recievedName === "dateNewRepos") {
+          // here is database reset x1
           (async () => {
             await Repo.sync({ force: true });
 
-            // here Repos are added one at a time
+            // here Repos are added one at a time x1
             for (let i = 0; i < data.items.length; i++) {
               console.log(` and the number is ${i + 1}`);
               Repo.create({
@@ -77,12 +59,12 @@ router.post("/add", (req, res) => {
               }
             }
           })();
-        } else if (recievedName === "forceSync") {
+        } else if (recievedName === "dateNewDb") {
           // here is database reset x2
           (async () => {
             await Repo.sync({ force: true });
 
-            // here Repos are added one at a time
+            // here Repos are added one at a time x2
             for (let i = 0; i < data.items.length; i++) {
               console.log(` and the number is ${i + 1}`);
               Repo.create({
@@ -104,7 +86,83 @@ router.post("/add", (req, res) => {
           })();
         } else {
           res.send(`${recievedName}`);
-          // if error or bug ^^it^^ prints name of button that caused error
+          // if error then ^^it^^ prints name of button that caused error
+        }
+      })
+    );
+  }
+});
+
+// renders control page
+router.get("/", (req, res) => res.render("repos", { dateValue }));
+
+// get repos to database
+router.post("/add", (req, res) => {
+  let recievedName;
+  for (var name in req.body) {
+    recievedName = name;
+  }
+  // updates url value with new dateValue
+  let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`;
+  console.log(`request is ${url}`);
+
+  // here database is set and filled
+  {
+    fetch(url, { dateValue }).then((response) =>
+      response.json().then((data) => {
+        if (recievedName === "all") {
+          // here is database reset x3
+          (async () => {
+            await Repo.sync({ force: true });
+
+            // here Repos are added one at a time x3
+            for (let i = 0; i < data.items.length; i++) {
+              console.log(` and the number is ${i + 1}`);
+              Repo.create({
+                item_id: data.items[i].id,
+                item_name: data.items[i].name,
+                full_name: data.items[i].full_name,
+                stargazers_count: data.items[i].stargazers_count,
+                description: data.items[i].description,
+                html_url: data.items[i].html_url,
+              })
+                .then(console.log("Added"))
+                .catch((err) => console.log(err));
+
+              if (data.items.length - 1 === i) {
+                console.log(dateValue);
+                res.redirect("/repos");
+              }
+            }
+          })();
+        } else if (recievedName === "forceSync") {
+          // here is database reset x4
+          (async () => {
+            await Repo.sync({ force: true });
+
+            // here Repos are added one at a time x4
+            for (let i = 0; i < data.items.length; i++) {
+              console.log(` and the number is ${i + 1}`);
+              Repo.create({
+                item_id: data.items[i].id,
+                item_name: data.items[i].name,
+                full_name: data.items[i].full_name,
+                stargazers_count: data.items[i].stargazers_count,
+                description: data.items[i].description,
+                html_url: data.items[i].html_url,
+              })
+                .then(console.log("Added"))
+                .catch((err) => console.log(err));
+
+              if (data.items.length - 1 === i) {
+                console.log(dateValue);
+                res.redirect("/repos/database");
+              }
+            }
+          })();
+        } else {
+          res.send(`${recievedName}`);
+          // if error then ^^it^^ prints name of button that caused error
         }
       })
     );
@@ -132,7 +190,18 @@ router.get("/getrepos", (req, res) => {
 // gets database with designated Repos
 router.get("/database", (req, res) => {
   Repo.findAll()
-    .then((newrepos) => res.render("database", { newrepos, dateValue }))
+    .then((newrepos) =>
+      res.render("database", { newrepos, dateValue, url, layout: "ee" })
+    )
+    .catch((err) => console.log(err));
+});
+
+// gets database with designated Repos
+router.get("/databasee", (req, res) => {
+  Repo.findAll()
+    .then((newrepos) =>
+      res.render("databasee", { newrepos, dateValue, url, layout: "ee" })
+    )
     .catch((err) => console.log(err));
 });
 
