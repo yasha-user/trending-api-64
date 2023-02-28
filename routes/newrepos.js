@@ -3,7 +3,50 @@ const router = express.Router();
 const db = require("../config/database");
 const Repo = require("../models/Repo");
 const Sequelize = require("sequelize");
+const { response } = require("express");
 const Op = Sequelize.Op;
+let secs = 0;
+let neededMinutes = 5;
+
+// function for interval
+function intervalFunc() {
+  console.log(`second ${secs}`);
+  secs++;
+  if (secs === neededMinutes * 60) {
+    // updates url value with new dateValue
+    secs = 0;
+    let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`;
+    console.log(`Synchronization request is ${url}`);
+
+    fetch(url, { dateValue }).then((response) =>
+      response.json().then((data) => {
+        // here is database reset x1
+        (async () => {
+          await Repo.sync({ force: true });
+          // here Repos are added one at a time x1
+          for (let i = 0; i < data.items.length; i++) {
+            console.log(`SYNC ${i + 1}/30`);
+            Repo.create({
+              item_id: data.items[i].id,
+              item_name: data.items[i].name,
+              full_name: data.items[i].full_name,
+              stargazers_count: data.items[i].stargazers_count,
+              description: data.items[i].description,
+              html_url: data.items[i].html_url,
+            })
+              .then(console.log("Sync added"))
+              .catch((err) => console.log(err));
+            if (data.items.length - 1 === i) {
+              console.log("SYNC COMPLETED!");
+            }
+          }
+        })();
+      })
+    );
+  }
+}
+// invoking of interval
+setInterval(intervalFunc, 1000);
 
 let dateValue = "2023-01-01"; // setting default value
 // here is request with the date
@@ -29,17 +72,17 @@ router.post("/dateval", (req, res) => {
   // updates url value with new dateValue
   let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`;
   console.log(`request is ${url}`);
-
   // here database is set and filled
+  secs = 0;
   {
     fetch(url, { dateValue }).then((response) =>
       response.json().then((data) => {
         if (recievedName === "dateNewRepos") {
-          // here is database reset x1
+          // here is database reset x2
           (async () => {
             await Repo.sync({ force: true });
+            // here Repos are added one at a time x2
 
-            // here Repos are added one at a time x1
             for (let i = 0; i < data.items.length; i++) {
               console.log(` and the number is ${i + 1}`);
               Repo.create({
@@ -52,7 +95,6 @@ router.post("/dateval", (req, res) => {
               })
                 .then(console.log("Added"))
                 .catch((err) => console.log(err));
-
               if (data.items.length - 1 === i) {
                 console.log(dateValue);
                 res.redirect("/repos");
@@ -60,11 +102,10 @@ router.post("/dateval", (req, res) => {
             }
           })();
         } else if (recievedName === "dateNewDb") {
-          // here is database reset x2
+          // here is database reset x3
           (async () => {
             await Repo.sync({ force: true });
-
-            // here Repos are added one at a time x2
+            // here Repos are added one at a time x3
             for (let i = 0; i < data.items.length; i++) {
               console.log(` and the number is ${i + 1}`);
               Repo.create({
@@ -77,7 +118,6 @@ router.post("/dateval", (req, res) => {
               })
                 .then(console.log("Added"))
                 .catch((err) => console.log(err));
-
               if (data.items.length - 1 === i) {
                 console.log(dateValue);
                 res.redirect("/repos/database");
@@ -108,38 +148,13 @@ router.post("/add", (req, res) => {
 
   // here database is set and filled
   {
+    secs = 0;
     fetch(url, { dateValue }).then((response) =>
       response.json().then((data) => {
         if (recievedName === "all") {
-          // here is database reset x3
-          (async () => {
-            await Repo.sync({ force: true });
-
-            // here Repos are added one at a time x3
-            for (let i = 0; i < data.items.length; i++) {
-              console.log(` and the number is ${i + 1}`);
-              Repo.create({
-                item_id: data.items[i].id,
-                item_name: data.items[i].name,
-                full_name: data.items[i].full_name,
-                stargazers_count: data.items[i].stargazers_count,
-                description: data.items[i].description,
-                html_url: data.items[i].html_url,
-              })
-                .then(console.log("Added"))
-                .catch((err) => console.log(err));
-
-              if (data.items.length - 1 === i) {
-                console.log(dateValue);
-                res.redirect("/repos");
-              }
-            }
-          })();
-        } else if (recievedName === "forceSync") {
           // here is database reset x4
           (async () => {
             await Repo.sync({ force: true });
-
             // here Repos are added one at a time x4
             for (let i = 0; i < data.items.length; i++) {
               console.log(` and the number is ${i + 1}`);
@@ -153,7 +168,31 @@ router.post("/add", (req, res) => {
               })
                 .then(console.log("Added"))
                 .catch((err) => console.log(err));
+              if (data.items.length - 1 === i) {
+                console.log(dateValue);
 
+                res.redirect("/repos");
+              }
+            }
+          })();
+        } else if (recievedName === "forceSync") {
+          // here is database reset x5
+
+          (async () => {
+            await Repo.sync({ force: true });
+            // here Repos are added one at a time x5
+            for (let i = 0; i < data.items.length; i++) {
+              console.log(` and the number is ${i + 1}`);
+              Repo.create({
+                item_id: data.items[i].id,
+                item_name: data.items[i].name,
+                full_name: data.items[i].full_name,
+                stargazers_count: data.items[i].stargazers_count,
+                description: data.items[i].description,
+                html_url: data.items[i].html_url,
+              })
+                .then(console.log("Added"))
+                .catch((err) => console.log(err));
               if (data.items.length - 1 === i) {
                 console.log(dateValue);
                 res.redirect("/repos/database");
@@ -183,7 +222,7 @@ router.get("/getrepos", (req, res) => {
     },
   })
     // now database is rendered with repos that are found
-    .then((newrepos) => res.render("database", { newrepos }))
+    .then((newrepos) => res.render("database", { newrepos, dateValue }))
     .catch((err) => console.log(err));
 });
 
@@ -196,6 +235,12 @@ router.get("/database", (req, res) => {
     .catch((err) => console.log(err));
 });
 
+// easter egg pages
+// easter egg pages
+// easter egg pages
+// easter egg pages
+// easter egg pages
+// easter egg pages
 // gets database with designated Repos
 router.get("/databasee", (req, res) => {
   Repo.findAll()
@@ -216,5 +261,20 @@ router.get("/spell", (req, res) => {
     })
   );
 });
+// not finished at all
+/* router.post("/hide", (res, req) => {
+  function ok() {
+    console.log("hey!");
+    res.render("databasee");
+  }
+  ok();
+}); */
+
+// easter egg pages
+// easter egg pages
+// easter egg pages
+// easter egg pages
+// easter egg pages
+// easter egg pages
 
 module.exports = router;

@@ -60,3 +60,12 @@ header a {
     padding: .5rem 2rem;
     border-right: 1px black solid;
 }
+
+.h1 {
+    color: yellow;
+}
+
+.tip {
+    color: #777;
+    font-size: 1.25rem;
+}
