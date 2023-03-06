@@ -5,52 +5,13 @@ const Repo = require("../models/Repo");
 const Sequelize = require("sequelize");
 const { response } = require("express");
 const Op = Sequelize.Op;
-let secs = 0;
-let neededMinutes = 5;
-
-// function for interval
-function intervalFunc() {
-  console.log(`second ${secs}`);
-  secs++;
-  if (secs === neededMinutes * 60) {
-    // updates url value with new dateValue
-    secs = 0;
-    let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`;
-    console.log(`Synchronization request is ${url}`);
-
-    fetch(url, { dateValue }).then((response) =>
-      response.json().then((data) => {
-        // here is database reset x1
-        (async () => {
-          await Repo.sync({ force: true });
-          // here Repos are added one at a time x1
-          for (let i = 0; i < data.items.length; i++) {
-            console.log(`SYNC ${i + 1}/30`);
-            Repo.create({
-              item_id: data.items[i].id,
-              item_name: data.items[i].name,
-              full_name: data.items[i].full_name,
-              stargazers_count: data.items[i].stargazers_count,
-              description: data.items[i].description,
-              html_url: data.items[i].html_url,
-            })
-              .then(console.log("Sync added"))
-              .catch((err) => console.log(err));
-            if (data.items.length - 1 === i) {
-              console.log("SYNC COMPLETED!");
-            }
-          }
-        })();
-      })
-    );
-  }
-}
-// invoking of interval
-setInterval(intervalFunc, 1000);
+const intervFunc = require("./intvfunc");
 
 let dateValue = "2023-01-01"; // setting default value
 // here is request with the date
 let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`; // url for request for repos created from 01-01-2023 up to today by default
+
+router.use(intervFunc, intervalFunc());
 
 // changing dateValue
 router.use("/dateval", (req, res, next) => {
@@ -261,14 +222,6 @@ router.get("/spell", (req, res) => {
     })
   );
 });
-// not finished at all
-/* router.post("/hide", (res, req) => {
-  function ok() {
-    console.log("hey!");
-    res.render("databasee");
-  }
-  ok();
-}); */
 
 // easter egg pages
 // easter egg pages
@@ -278,3 +231,4 @@ router.get("/spell", (req, res) => {
 // easter egg pages
 
 module.exports = router;
+module.exports = { dateValue, url };
