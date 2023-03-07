@@ -5,12 +5,16 @@ const Repo = require("../models/Repo");
 const Sequelize = require("sequelize");
 const { response } = require("express");
 const Op = Sequelize.Op;
-let secs = require("../trending-repos-cli/index");
+const index2 = require("../trending-repos-cli/index");
+
 secs = 0;
 let neededMinutes = 5;
 
 // function for interval
 function intervalFunc() {
+  if (index2.secs1) {
+    secs = index2.secs1;
+  }
   console.log(`second ${secs}`);
   secs++;
   if (secs === neededMinutes * 60) {
@@ -46,6 +50,7 @@ function intervalFunc() {
     );
   }
 }
+
 // invoking of interval
 setInterval(intervalFunc, 1000);
 
