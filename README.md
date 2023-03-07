@@ -11,4 +11,4 @@ The real case is it is alive and kicking and bugs are rare
 2: When you call fsync function from cli: 
 2.1 it starts counting seconds (it shouldnt)(its because newrepos.js is imported i need to fix it)
 2.2 It doesnt fsync, the variable is not noticed when passed from func that changes it
-(Im working on it^^^)
+(Im working on it^^^^^^^^^^^^^^^^^^^^^^^)
