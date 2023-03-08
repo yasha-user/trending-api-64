@@ -14,9 +14,11 @@ let neededMinutes = 5;
 function intervalFunc() {
   if (index2.secs1) {
     secs = index2.secs1;
+    console.log("hey!");
   }
   console.log(`second ${secs}`);
   secs++;
+
   if (secs === neededMinutes * 60) {
     // updates url value with new dateValue
     secs = 0;
@@ -212,6 +214,31 @@ router.post("/add", (req, res) => {
       })
     );
   }
+});
+
+// fs from cli
+router.post("/fsfromcli", (req, res) => {
+  (async () => {
+    await Repo.sync({ force: true });
+    // here Repos are added one at a time x5
+    for (let i = 0; i < data.items.length; i++) {
+      console.log(` and the number is ${i + 1}`);
+      Repo.create({
+        item_id: data.items[i].id,
+        item_name: data.items[i].name,
+        full_name: data.items[i].full_name,
+        stargazers_count: data.items[i].stargazers_count,
+        description: data.items[i].description,
+        html_url: data.items[i].html_url,
+      })
+        .then(console.log("Added"))
+        .catch((err) => console.log(err));
+      if (data.items.length - 1 === i) {
+        console.log(dateValue);
+        res.send(data);
+      }
+    }
+  })();
 });
 
 // search by NAME or ID (renders database page with found repos instead of all)
