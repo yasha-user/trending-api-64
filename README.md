@@ -7,6 +7,7 @@ The real case is it is alive and kicking and bugs are rare
 
 # about bugs
 0.0 : Submodules are destroyed cli and im working on fixing it
+
 1: When you search by name it sometimes failes to find some letters in particular names.
 
 2: When you call fsync function from cli: 
