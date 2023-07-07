@@ -12,7 +12,7 @@ const questions = [
   { type: "input", name: "description", message: "Repo description:" },
 ];
 
-program.version("1.0.0").description("Repo Management System");
+program.version("1.0.0").description("Trending Repositories CLI");
 
 // program
 //   .command("add <repo_name> <repo_id> <stargazers_count> <description>")
