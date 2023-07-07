@@ -50,5 +50,6 @@ program
   .command("fsync")
   .alias("fs")
   .description("force syncronize")
-  .action(() => forceSyncFromCli);
+  .action(() => forceSyncFromCli());
+
 program.parse(process.argv);
