@@ -1,0 +1,4 @@
+[submodule "trending-api-64"]
+	path = trending-api-64
+	url = https://github.com/yakovgavryushov/trending-api-64.git
+	branch = master
