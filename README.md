@@ -25,4 +25,4 @@ then the app will notify you that the server has started and it will be hosted o
    To use the graphical interface you need to run localhost:4000 in your browser and then it wont be that hard to go on
 
 2. Command Line Interface
-   In order to use CLI you need to invoke the file commands.js with node by calling node commands.js in terminal while located in file "trending-repos-cli"
+   In order to use CLI you need to invoke the file commands.js with node by calling node commands.js in terminal while located in file "trending-repos-cli", !BUT! the submodules on github are undeletable and i cant git add them to the repo (because they are a part of submodule) so i need to fix it.
