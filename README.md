@@ -9,8 +9,7 @@ The real case is it is alive and kicking and bugs are rare (crashes after a 5 hr
 
 1: When you search by name it sometimes failes to find some letters in particular names, it looks like it has something to do with github API and its responds to this kind of requests.
 
-2: Fsync is not yet functioning
---- A note from the past: Fsync doesnt fsync, the variable is not noticed when passed from func that changes it
+2: Fsync from CLI makes console hang and you need to Ctrl+C when you recieved the response (which is refreshed database)
 
 # DOCUMENTATION:
 
@@ -23,4 +22,4 @@ then the app will notify you that the server has started and it will be hosted o
    To use the graphical interface you need to run localhost:4000 in your browser and then it wont be that hard to go on
 
 2. Command Line Interface
-   In order to use CLI you need to invoke the file commands.js with node by calling node commands.js in terminal while located in file "trending-repos-cli"
+   In order to use CLI you need to invoke the file commands.js with node by calling node commands.js in terminal while located in file "trending-repos-cli".
