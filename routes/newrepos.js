@@ -14,7 +14,7 @@ let neededMinutes = 5;
 function intervalFunc() {
   if (index2.secs1) {
     secs = index2.secs1;
-    console.log("hey!");
+    // console.log("hey!");
   }
   console.log(`second ${secs}`);
   secs++;
@@ -41,7 +41,7 @@ function intervalFunc() {
               description: data.items[i].description,
               html_url: data.items[i].html_url,
             })
-              .then(console.log("Sync added"))
+              // .then(console.log("Sync added"))
               .catch((err) => console.log(err));
             if (data.items.length - 1 === i) {
               console.log("SYNC COMPLETED!");
