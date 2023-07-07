@@ -14,7 +14,7 @@ let neededMinutes = 5;
 function intervalFunc() {
   if (index2.secs1) {
     secs = index2.secs1;
-    // console.log("hey!");
+    console.log("hey!!!");
   }
   console.log(`second ${secs}`);
   secs++;
