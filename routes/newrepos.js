@@ -12,11 +12,11 @@ let neededMinutes = 5;
 
 // function for interval
 function intervalFunc() {
-  if (index2.secs1) {
-    secs = index2.secs1;
-  }
-  console.log(`second ${secs}`);
-  secs++;
+  // if (index2.secs1) {
+  //   secs = index2.secs1;
+  // }
+  // console.log(`second ${secs}`);
+  // secs++;
 
   if (secs === neededMinutes * 60) {
     // updates url value with new dateValue
@@ -300,5 +300,7 @@ router.get("/spell", (req, res) => {
 // easter egg pages
 // easter egg pages
 // easter egg pages
-module.exports = secs;
+module.exports = { secs };
 module.exports = router;
+module.exports = dateValue;
+module.exports = { url };
