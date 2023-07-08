@@ -15,7 +15,7 @@ The real case is it is alive and kicking and bugs are rare (crashes after a 5 hr
 
 # how to run this API:
 
-You need to get the contents of the repo cloned or downloaded and then invoke the terminal inside the folder to call 1. "npm init" (initiates the node package manager settings)
+You need to get the contents of the repo cloned or downloaded and then invoke the terminal inside the folder to call "npm init" (initiates the node package manager settings)
 then the app will notify you that the server has started and it will be hosted on a port of 4000, which value is set in "app.js" file at a 47th line
 
 1. Graphical interface:
