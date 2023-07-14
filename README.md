@@ -18,11 +18,8 @@ The real case is it is alive and kicking and bugs are rare (crashes after a 5 hr
 You need to get the contents of the repo cloned or downloaded and then invoke the terminal inside the folder to call "npm install" (initiates the node package manager settings)
 then the app will notify you that the server has started and it will be hosted on a port of 4000, which value is set in "app.js" file at a 47th line
 
-1. Graphical interface:
+1. Graphical interface: <br>
    To use the graphical interface you need to run "npm run dev" from the file of downloaded/cloned repository, and then go to page of localhost:4000 in your browser and then it wont be that hard to go on
-<br>
-<br>
-<br>
    <h3>^^ graphical interface was working last week but now it doesn't, however i hadnt made any changes. Maybe if we'll wait until monday it'll work again (otherwise i'll fix it anyways). Magic. </h3>
    <h2>It logs an error looking like this: </h2>
    <code>D:\kodi\proj64 - node 2\node_modules\express\lib\router\index.js:469
@@ -44,7 +41,7 @@ Node.js v18.13.0</code>
 <br>
 <br>
 
-3. Command Line Interface (WORKS)
+3. Command Line Interface (WORKS) <br>
    In order to use CLI you need to invoke the file commands.js with node by calling node commands.js in terminal while located in file "trending-repos-cli".
 <br>
 <br>
