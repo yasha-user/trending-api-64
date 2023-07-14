@@ -44,7 +44,7 @@ Node.js v18.13.0</code>
 <br>
 <br>
 
-3. Command Line Interface
+3. Command Line Interface (WORKS)
    In order to use CLI you need to invoke the file commands.js with node by calling node commands.js in terminal while located in file "trending-repos-cli".
 <br>
 <br>
