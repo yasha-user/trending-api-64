@@ -4,8 +4,8 @@
   "description": "node app for tr_repos",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "dev": "node app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "author": "yasha_tester",
   "license": "ISC",
