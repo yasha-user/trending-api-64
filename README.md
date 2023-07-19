@@ -1,9 +1,8 @@
 # trending-api-64
 
-about commit names that are sometimes wrong here:
+# about this api
 
-When i was writing messages for commits i hadnt yet thought that all the files would be captioned as "..with unsolved bugs" etc.
-The real case is it is alive and kicking and bugs are rare (crashes after a 5 hrs doesnt count)
+It has Postgres database, nice UI in html/css, and CLI client (in folder trending-repos-cli)
 
 # about bugs
 
