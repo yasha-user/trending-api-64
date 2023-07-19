@@ -5,11 +5,13 @@ const Repo = require("../models/Repo");
 const Sequelize = require("sequelize");
 const { response } = require("express");
 const Op = Sequelize.Op;
-const index2 = require("../trending-repos-cli/index");
 
 secs = 0;
 let neededMinutes = 5;
 
+let dateValue = "2023-01-01"; // setting default value
+// here is request with the date
+let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`; // url for request for repos created from 01-01-2023 up to today by default
 // function for interval
 function intervalFunc() {
   // if (index2.secs1) {
@@ -54,10 +56,6 @@ function intervalFunc() {
 
 // invoking of interval
 setInterval(intervalFunc, 1000);
-
-let dateValue = "2023-01-01"; // setting default value
-// here is request with the date
-let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`; // url for request for repos created from 01-01-2023 up to today by default
 
 // changing dateValue
 router.use("/dateval", (req, res, next) => {
@@ -300,7 +298,7 @@ router.get("/spell", (req, res) => {
 // easter egg pages
 // easter egg pages
 // easter egg pages
-module.exports = { secs };
+
 module.exports = dateValue;
 module.exports = { url };
 module.exports = router;
