@@ -2,7 +2,7 @@
 
 # about this api
 
-It has Postgres database, nice UI in html/css, and CLI client (in folder trending-repos-cli)
+It has Postgres database, nice UI in html/css, and CLI client (in folder trending-repos-cli).
 
 # about bugs
 
@@ -20,14 +20,14 @@ then the app will notify you that the server has started and it will be hosted o
 1. Graphical interface: <br>
    To use the graphical interface you need to run "npm run dev" from the file of downloaded/cloned repository, and then go to page of localhost:4000 in your browser and then it wont be that hard to go on
 
-3. Command Line Interface <br>
+2. Command Line Interface <br>
    In order to use CLI you need to invoke the file commands.js with node by calling node commands.js in terminal while located in file "trending-repos-cli".
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
