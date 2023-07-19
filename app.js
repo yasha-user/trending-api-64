@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 });
 
 // repos page
-app.use("/repos", require("./routes/newrepos"));
+app.use("/repos", () => require("./routes/newrepos"));
 
 // setInterval
 
