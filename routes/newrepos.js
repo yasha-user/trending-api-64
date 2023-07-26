@@ -9,17 +9,8 @@ const Op = Sequelize.Op;
 secs = 0;
 let neededMinutes = 5;
 
-let dateValue = "2023-01-01"; // setting default value
-// here is request with the date
-let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`; // url for request for repos created from 01-01-2023 up to today by default
 // function for interval
 function intervalFunc() {
-  // if (index2.secs1) {
-  //   secs = index2.secs1;
-  // }
-  // console.log(`second ${secs}`);
-  // secs++;
-
   if (secs === neededMinutes * 60) {
     // updates url value with new dateValue
     secs = 0;
@@ -57,6 +48,10 @@ function intervalFunc() {
 // invoking of interval
 setInterval(intervalFunc, 1000);
 
+let dateValue = "2023-01-01"; // setting default value
+// here is request with the date
+let url = `https://api.github.com/search/repositories?q=created:>${dateValue}&sort=stars&order=desc`; // url for request for repos created from 01-01-2023 up to today by default
+
 // changing dateValue
 router.use("/dateval", (req, res, next) => {
   if (req.body.dateNewRepos) {
@@ -89,7 +84,7 @@ router.post("/dateval", (req, res) => {
             // here Repos are added one at a time x2
 
             for (let i = 0; i < data.items.length; i++) {
-              console.log(` and the number is ${i + 1}`);
+              // console.log(` and the number is ${i + 1}`);
               Repo.create({
                 item_id: data.items[i].id,
                 item_name: data.items[i].name,
@@ -98,7 +93,7 @@ router.post("/dateval", (req, res) => {
                 description: data.items[i].description,
                 html_url: data.items[i].html_url,
               })
-                .then(console.log("Added"))
+                .then(console.log(`repo ${i + 1} is added`))
                 .catch((err) => console.log(err));
               if (data.items.length - 1 === i) {
                 console.log(dateValue);
@@ -112,7 +107,7 @@ router.post("/dateval", (req, res) => {
             await Repo.sync({ force: true });
             // here Repos are added one at a time x3
             for (let i = 0; i < data.items.length; i++) {
-              console.log(` and the number is ${i + 1}`);
+              // console.log(` and the number is ${i + 1}`);
               Repo.create({
                 item_id: data.items[i].id,
                 item_name: data.items[i].name,
@@ -121,7 +116,7 @@ router.post("/dateval", (req, res) => {
                 description: data.items[i].description,
                 html_url: data.items[i].html_url,
               })
-                .then(console.log("Added"))
+                .then(console.log(`repo ${i + 1} is added`))
                 .catch((err) => console.log(err));
               if (data.items.length - 1 === i) {
                 console.log(dateValue);
@@ -162,7 +157,7 @@ router.post("/add", (req, res) => {
             await Repo.sync({ force: true });
             // here Repos are added one at a time x4
             for (let i = 0; i < data.items.length; i++) {
-              console.log(` and the number is ${i + 1}`);
+              // console.log(` and the number is ${i + 1}`);
               Repo.create({
                 item_id: data.items[i].id,
                 item_name: data.items[i].name,
@@ -171,7 +166,7 @@ router.post("/add", (req, res) => {
                 description: data.items[i].description,
                 html_url: data.items[i].html_url,
               })
-                .then(console.log("Added"))
+                .then(console.log(`repo ${i + 1} is added`))
                 .catch((err) => console.log(err));
               if (data.items.length - 1 === i) {
                 console.log(dateValue);
@@ -187,7 +182,7 @@ router.post("/add", (req, res) => {
             await Repo.sync({ force: true });
             // here Repos are added one at a time x5
             for (let i = 0; i < data.items.length; i++) {
-              console.log(` and the number is ${i + 1}`);
+              // console.log(` and the number is ${i + 1}`);
               Repo.create({
                 item_id: data.items[i].id,
                 item_name: data.items[i].name,
@@ -196,7 +191,7 @@ router.post("/add", (req, res) => {
                 description: data.items[i].description,
                 html_url: data.items[i].html_url,
               })
-                .then(console.log("Added"))
+                .then(console.log(`repo ${i + 1} is added`))
                 .catch((err) => console.log(err));
               if (data.items.length - 1 === i) {
                 console.log(dateValue);
@@ -219,7 +214,7 @@ router.post("/fsfromcli", (req, res) => {
     await Repo.sync({ force: true });
     // here Repos are added one at a time x5
     for (let i = 0; i < data.items.length; i++) {
-      console.log(` and the number is ${i + 1}`);
+      // console.log(` and the number is ${i + 1}`);
       Repo.create({
         item_id: data.items[i].id,
         item_name: data.items[i].name,
@@ -228,7 +223,7 @@ router.post("/fsfromcli", (req, res) => {
         description: data.items[i].description,
         html_url: data.items[i].html_url,
       })
-        .then(console.log("Added"))
+        .then(console.log(`repo ${i + 1} is added`))
         .catch((err) => console.log(err));
       if (data.items.length - 1 === i) {
         console.log(dateValue);
@@ -251,7 +246,7 @@ router.get("/getrepos", (req, res) => {
       ],
     },
   })
-    // now database is rendered with repos that are found
+    // now database is rendered with the repos that are found
     .then((newrepos) => res.render("database", { newrepos, dateValue }))
     .catch((err) => console.log(err));
 });
@@ -271,6 +266,7 @@ router.get("/database", (req, res) => {
 // easter egg pages
 // easter egg pages
 // easter egg pages
+
 // gets database with designated Repos
 router.get("/databasee", (req, res) => {
   Repo.findAll()
@@ -299,6 +295,5 @@ router.get("/spell", (req, res) => {
 // easter egg pages
 // easter egg pages
 
-module.exports = dateValue;
-module.exports = { url };
+module.exports = { url, dateValue };
 module.exports = router;
