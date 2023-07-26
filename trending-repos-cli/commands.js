@@ -15,21 +15,6 @@ const questions = [
 program.version("1.0.0").description("Trending Repositories CLI");
 
 // program
-//   .command("add <repo_name> <repo_id> <stargazers_count> <description>")
-//   .alias("a")
-//   .description("add a repo")
-//   .action((repo_name, repo_id, stargazers_count, description) => {
-//     addRepo({ repo_name, repo_id, stargazers_count, description });
-//   });
-
-// // Add command
-// program
-//   .command("add")
-//   .alias("a")
-//   .description("add a repo")
-//   .action(() => {
-//     prompt(questions).then((answers) => addRepo(answers));
-//   });
 
 // Find command
 program
