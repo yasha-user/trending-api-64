@@ -14,8 +14,11 @@ It has Postgres database, nice UI in html/css, and CLI client (in folder trendin
 
 # how to run this API:
 
-You need to get the contents of the repo cloned or downloaded and then invoke the terminal inside the folder to call "npm install" (installs npm dependencies)
+<h3>Initial setup:</h3>
+ You need to get the contents of the repo cloned or downloaded and then invoke the terminal inside the folder to call "npm install" (installs npm dependencies)
 then the app will notify you that the server has started and it will be hosted on a port of 4000, which value is set in "app.js" file at a 47th line
+
+<h3>Usage</h3>
 
 1. Graphical interface: <br>
    To use the graphical interface you need to run "npm run dev" from the file of downloaded/cloned repository, and then go to page of localhost:4000 in your browser and then it wont be that hard to go on
