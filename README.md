@@ -14,9 +14,7 @@ In addition this API has its CLI client, which can list all the 30 repos from th
 
 1. A bug caused by Github API: search by name doesn't always find names, some of them are not visible to search.
 
-2. If the last line in newrepos.js is <code>module.exports = router</code>, (which is the current state) then Fsync from CLI logs that the dateValue and url are undefined. However, if you move <code>module.exports = router </code> before the <code> module.exports = {dateValue, url}</code>, then CLI will be fully functional, but API itself will break and stop responding.
-
-3. For some reason the list of repos displayed in html page is often shown in broken order: you can press force sync, apply or any other update button and it sometimes breaks. If the problem is not some incorrect handlebars functionality – then i don't know what the problem is.
+2. For some reason the list of repos displayed in html page is often shown in broken order: you can press force sync, apply or any other update button and it sometimes breaks. If the problem is not some incorrect handlebars functionality – then i don't know what the problem is.
 
 # DOCUMENTATION:
 
