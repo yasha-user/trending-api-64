@@ -295,5 +295,4 @@ router.get("/spell", (req, res) => {
 // easter egg pages
 // easter egg pages
 
-module.exports = { url, dateValue };
-module.exports = router;
+module.exports = { router, url, dateValue };

@@ -7,6 +7,7 @@ const Handlebars = require("handlebars");
 const {
   allowInsecurePrototypeAccess,
 } = require("@handlebars/allow-prototype-access");
+const { router } = require("./routes/newrepos");
 
 // checking the connection
 db.authenticate()
@@ -38,7 +39,7 @@ app.get("/", (req, res) => {
 });
 
 // repos page
-app.use("/repos", require("./routes/newrepos"));
+app.use("/repos", router);
 
 // setInterval
 
