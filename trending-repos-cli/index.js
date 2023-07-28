@@ -1,25 +1,17 @@
 const express = require("express");
-const router = express.Router();
+
+const { url, dateValue } = require("../routes/newrepos");
+
 const db = require("../config/database");
 const Repo = require("../models/Repo");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 let request = require("request");
 const { response } = require("express");
-let secs1;
-const { dateValue, url } = require("../routes/newrepos");
-console.log(`Request for URL: ${url}`);
-/* 
-// add repo
-// also needed but for start
-const addRepo = (repo) => {
-  Repo.create(repo)
-    .then((repo) => {
-      console.info("New Repo added");
-    })
-    .catch((err) => console.log(err));
-};
- */
+const { json } = require("body-parser");
+
+console.log(`Request for URL: ${url})}`);
+
 // find tr... repo by name or id
 const findRepo = (name) => {
   // make case-insensitive
@@ -48,41 +40,39 @@ const listRepos = () => {
 };
 
 function forceSyncFromCli() {
-  fetch(url, { dateValue }).then(
-    (response) =>
+  fetch(url, { dateValue })
+    .then((response) =>
       response.json().then((data) => {
         (async () => {
-          await Repo.sync({ force: true });
-          // here Repos are added one at a time x5
-          for (let i = 0; i < data.items.length; i++) {
-            // console.log(` and the number is ${i + 1}`);
-            Repo.create({
-              item_id: data.items[i].id,
-              item_name: data.items[i].name,
-              full_name: data.items[i].full_name,
-              stargazers_count: data.items[i].stargazers_count,
-              description: data.items[i].description,
-              html_url: data.items[i].html_url,
-            })
-              .then(console.log(`Repo ${i + 1} added`))
+          try {
+            Repo.sync({ force: true });
+            // here Repos are added one at a time x5
+            for (let i = 0; i < data.items.length; i++) {
+              // console.log(` and the number is ${i + 1}`);
+              Repo.create({
+                item_id: data.items[i].id,
+                item_name: data.items[i].name,
+                full_name: data.items[i].full_name,
+                stargazers_count: data.items[i].stargazers_count,
+                description: data.items[i].description,
+                html_url: data.items[i].html_url,
+              })
+                .then(console.log(`Repo ${i + 1} added`))
 
-              .catch((err) => console.log(err));
-            if (data.items.length - 1 === i) {
-              // console.log(dateValue);
+                .catch((err) => console.log(err));
+              if (data.items.length - 1 === i) {
+                let looped = true;
+              }
             }
+          } catch (error) {
+            console.log(error);
           }
         })();
-
-        console.log("SUCK SESS");
       })
-    /*
-    .then(function () { 
-       process.exit();
-    }) */
-  );
-
-  // secs1 = 0;
-  // console.log("ALLEY OOP!");
+    )
+    .then(function () {
+      process.exit();
+    });
 }
 
 // export all methods
