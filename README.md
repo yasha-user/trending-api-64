@@ -6,9 +6,11 @@ It has Postgres database, nice UI in html/css, and CLI client (in folder trendin
 
 # about bugs
 
-1. A bug caused by Github API: search by name doesn't always find names, some of them are not visible to search. 
+1. A bug caused by Github API: search by name doesn't always find names, some of them are not visible to search.
 
 2. If the last line in newrepos.js is <code>module.exports = router</code>, (which is the current state) then Fsync from CLI logs that the dateValue and url are undefined. However, if you move <code>module.exports = router </code> before the <code> module.exports = {dateValue, url}</code>, then CLI will be fully functional, but API itself will break and stop responding.
+
+3. For some reason the list of repos displayed in html page is often shown in broken order: you can press force sync, apply or any other update button and it sometimes breaks. If the problem is not some incorrect handlebars functionality – then i don't know what the problem is.
 
 # DOCUMENTATION:
 
