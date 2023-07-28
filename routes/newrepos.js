@@ -11,6 +11,7 @@ let neededMinutes = 5;
 
 // function for interval
 function intervalFunc() {
+  secs++;
   if (secs === neededMinutes * 60) {
     // updates url value with new dateValue
     secs = 0;
