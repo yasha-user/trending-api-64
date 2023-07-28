@@ -20,7 +20,7 @@ then the app will notify you that the server has started and it will be hosted o
 1. Graphical interface: <br>
    To use the graphical interface you need to run "npm run dev" from the file of downloaded/cloned repository, and then go to page of localhost:4000 in your browser and then it wont be that hard to go on
 
-2. Command Line Interface <br>
+2. CLI client <br>
    In order to use CLI you need to invoke the file commands.js with node by calling node commands.js in terminal while located in file "trending-repos-cli".
    <br>
    <br>
