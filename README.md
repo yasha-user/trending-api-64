@@ -8,7 +8,7 @@ It has Postgres database, nice UI in html/css, and CLI client (in folder trendin
 
 You can get first 30 repos from github trending repositories, you can find these repositories by name or ID, you can change filter of creation date of these repositories. Also you can force-sync your database with repositories with an actual github trending repos list, you can click the @open button and it will open a github address of this link, and besides that you can find easter egg (bonus) pages if you click around.
 <br>
-In addition this API has its CLI client, which can list all the 30 repos from the database, find repos by name, and (function has to be fixed) force-sync your database with the github actual list of trending repositories.
+In addition this API has its CLI client, which can list all the 30 repos from the database, find repos by name, and force-sync your database with the github actual list of trending repositories.
 
 # about bugs
 
