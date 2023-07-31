@@ -10,7 +10,7 @@ secs = 0;
 let neededMinutes = 5;
 
 // function for interval
-// it should be in another file, but if you move it -- it returns an error of "can't get data.items.length"
+// it should be in another file, but if you move it -- it logs the error of "can't get data.items.length"
 function intervalFunc() {
   secs++;
   if (secs === neededMinutes * 60) {
