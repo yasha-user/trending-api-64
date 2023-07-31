@@ -2,7 +2,12 @@
 
 # about this api
 
-It has Postgres database, nice UI in html/css, and CLI client (in folder trending-repos-cli).
+It has PostgreSQL database, nice UI in html/css, and CLI client (in folder trending-repos-cli). 
+
+<h3>
+ why PostgreSQL and not mySQL
+</h3>
+I've chosen to use PostgreSQL because this API doesn't require anything special from mySQL database management system, and today PostgreSQL database management system are in much demand, so i used it.
 
 # functionality:
 
