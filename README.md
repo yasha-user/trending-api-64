@@ -29,6 +29,8 @@ In addition this API has its CLI client, which can list all the 30 repos from th
  You need to get the contents of the repo cloned or downloaded and then invoke the terminal inside the folder to call "npm install" (installs npm dependencies)
 then the app will notify you that the server has started and it will be hosted on a port of 4000, which value is set in "app.js" file at a 47th line
 
+Also you need to have node version of 16 or higher (for using ?? operator) and postgres instance that has database with name exampledatabase for user "postgres". If you have password for your "postgres" user, then either change it to "skywalker99_", or change default password that i defined in "/config/database.js", which is initially set as "skywalker99_".  
+
 <h3>Usage</h3>
 
 1. Graphical interface: <br>
